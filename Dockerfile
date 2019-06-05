@@ -16,6 +16,7 @@ RUN apt-get update \
  && apt-get dist-upgrade -y \
  && apt-get install -y \
       libicu-dev \
+      libcurl4-gnutls-dev \
  && docker-php-ext-configure intl \
  && docker-php-ext-install intl \
  && docker-php-ext-configure json \
