@@ -36,6 +36,7 @@ RUN cd "/tmp" \
  && mv $DNSUI_NAME $DNSUI_HOME \
  && cleanimage
 
-COPY dns-ui.conf /etc/httpd/conf.d/
+COPY ["dns-ui.conf", "/etc/apache2/conf-available/"]
+RUN ln -s /etc/apache2/conf-available/dns-ui.conf /etc/apache2/conf-enabled/.
 
 RUN sbt tasks
