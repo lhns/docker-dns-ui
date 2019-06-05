@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM php:apache
 MAINTAINER LolHens <pierrekisters@gmail.com>
 
 
@@ -15,8 +15,6 @@ RUN chmod +x "/usr/local/bin/cleanimage"
 RUN apt-get update \
  && apt-get dist-upgrade -y \
  && apt-get install -y \
-      apache2 \
-      php-fpm \
       php-intl \
       php-json \
       php-curl \
@@ -24,8 +22,6 @@ RUN apt-get update \
       php-ldap \
       php-pgsql \
       postgresql \
- && a2enconf php7.2-fpm \
- && a2enmod ssl authnz_ldap \
  && cd "/tmp" \
  && curl -LO $DNSUI_URL \
  && tar -xf $DNSUI_FILE \
