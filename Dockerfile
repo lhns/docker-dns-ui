@@ -1,4 +1,4 @@
-FROM php:apache
+FROM debian:latest
 MAINTAINER LolHens <pierrekisters@gmail.com>
 
 
@@ -15,18 +15,13 @@ RUN chmod +x "/usr/local/bin/cleanimage"
 RUN apt-get update \
  && apt-get dist-upgrade -y \
  && apt-get install -y \
-      libicu-dev \
-      libcurl4-gnutls-dev \
- && docker-php-ext-configure intl \
- && docker-php-ext-install intl \
- && docker-php-ext-configure json \
- && docker-php-ext-install json \
- && docker-php-ext-configure curl \
- && docker-php-ext-install curl \
- && docker-php-ext-configure mbstring \
- && docker-php-ext-install mbstring \
- && docker-php-ext-configure pgsql \
- && docker-php-ext-install pgsql \
+      php \
+      php-intl \
+      php-json \
+      php-curl \
+      php-mbstring \
+      php-ldap \
+      php-pgsql \
  && cleanimage
 
 RUN cd "/tmp" \
@@ -38,4 +33,4 @@ RUN cd "/tmp" \
 COPY ["dns-ui.conf", "/etc/apache2/conf-available/"]
 RUN ln -s /etc/apache2/conf-available/dns-ui.conf /etc/apache2/conf-enabled/.
 
-RUN sbt tasks
+CMD apache2ctl -D FOREGROUND
