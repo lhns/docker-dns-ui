@@ -25,8 +25,6 @@ RUN apt-get update \
  && docker-php-ext-install curl \
  && docker-php-ext-configure mbstring \
  && docker-php-ext-install mbstring \
- && docker-php-ext-configure ldap \
- && docker-php-ext-install ldap \
  && docker-php-ext-configure pgsql \
  && docker-php-ext-install pgsql \
  && cleanimage
