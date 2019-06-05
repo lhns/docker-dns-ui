@@ -16,20 +16,25 @@ RUN apt-get update \
  && apt-get dist-upgrade -y \
  && apt-get install -y \
       libicu-dev \
-      php-json \
-      php-curl \
-      php-mbstring \
-      php-ldap \
-      php-pgsql \
-      postgresql \
  && docker-php-ext-configure intl \
  && docker-php-ext-install intl \
- && cd "/tmp" \
+ && docker-php-ext-configure json \
+ && docker-php-ext-install json \
+ && docker-php-ext-configure curl \
+ && docker-php-ext-install curl \
+ && docker-php-ext-configure mbstring \
+ && docker-php-ext-install mbstring \
+ && docker-php-ext-configure ldap \
+ && docker-php-ext-install ldap \
+ && docker-php-ext-configure pgsql \
+ && docker-php-ext-install pgsql \
+ && cleanimage
+
+RUN cd "/tmp" \
  && curl -LO $DNSUI_URL \
  && tar -xf $DNSUI_FILE \
  && mv $DNSUI_NAME $DNSUI_HOME \
  && cleanimage
-ENV PATH $PATH:$DNSUI_HOME/bin
 
 COPY dns-ui.conf /etc/httpd/conf.d/
 
