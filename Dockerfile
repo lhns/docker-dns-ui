@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM lolhens/baseimage:latest
 MAINTAINER LolHens <pierrekisters@gmail.com>
 
 
@@ -8,9 +8,6 @@ ENV DNSUI_FILE v$DNSUI_VERSION.tar.gz
 ENV DNSUI_URL https://github.com/operasoftware/dns-ui/archive/$DNSUI_FILE
 ENV DNSUI_HOME /usr/local/dns-ui
 
-
-ADD ["https://raw.githubusercontent.com/LolHens/docker-tools/master/bin/cleanimage", "/usr/local/bin/"]
-RUN chmod +x "/usr/local/bin/cleanimage"
 
 RUN apt-get update \
  && apt-get dist-upgrade -y \
