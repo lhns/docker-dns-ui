@@ -15,13 +15,15 @@ RUN chmod +x "/usr/local/bin/cleanimage"
 RUN apt-get update \
  && apt-get dist-upgrade -y \
  && apt-get install -y \
-      php-intl \
+      libicu-dev \
       php-json \
       php-curl \
       php-mbstring \
       php-ldap \
       php-pgsql \
       postgresql \
+ && docker-php-ext-configure intl \
+ && docker-php-ext-install intl \
  && cd "/tmp" \
  && curl -LO $DNSUI_URL \
  && tar -xf $DNSUI_FILE \
