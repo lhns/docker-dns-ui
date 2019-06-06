@@ -30,4 +30,7 @@ RUN cd "/tmp" \
 COPY ["dns-ui.conf", "/etc/apache2/conf-available/"]
 RUN ln -s /etc/apache2/conf-available/dns-ui.conf /etc/apache2/conf-enabled/.
 
-CMD exec apache2ctl -D FOREGROUND
+
+RUN mv $DNSUI_HOME/config/config-sample.ini $DNSUI_HOME/config-sample.ini
+
+CMD cp -n $DNSUI_HOME/config-sample.ini $DNSUI_HOME/config/config.ini; exec apache2ctl -D FOREGROUND
