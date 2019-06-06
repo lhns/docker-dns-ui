@@ -6,7 +6,6 @@ ENV DNSUI_VERSION 53f5118a1d0ebc7ae144e84480932eaa1833c818
 ENV DNSUI_URL https://github.com/operasoftware/dns-ui/archive/$DNSUI_VERSION.tar.gz
 
 ENV DNSUI_HOME /opt/dns-ui
-ENV DNSUI_ADMIN_USER admin
 ENV DNSUI_ADMIN_NAME admin
 ENV DNSUI_ADMIN_EMAIL admin@example.com
 ENV DNSUI_WEB_BASEURL https://dns.example.com
@@ -35,7 +34,7 @@ RUN mkdir "$DNSUI_HOME"
 WORKDIR $DNSUI_HOME
 
 RUN curl -L $DNSUI_URL | tar -xz --strip-components=1 \
- && chmod +x scripts/create_admin_account.php
+ && sed -i -r 's/^(\s*).*Not logged in.*$/\1$active_user = $user_dir->get_user_by_uid('"'root'"');/' requesthandler.php
 
 COPY ["config_template.ini", "$DNSUI_HOME/"]
 
