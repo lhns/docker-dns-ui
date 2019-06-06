@@ -10,8 +10,8 @@ then
       VALUES (?, ?, ?, ?, ?, ?)
     '"'"')->execute(array(
         "admin",
-        $_ENV["DNSUI_ADMIN_NAME"],
-        $_ENV["DNSUI_ADMIN_EMAIL"],
+        '"'$DNSUI_ADMIN_NAME'"',
+        '"'$DNSUI_ADMIN_EMAIL'"',
         1,
         1,
         "local"
