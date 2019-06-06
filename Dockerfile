@@ -19,6 +19,7 @@ RUN apt-get update \
       php-mbstring \
       php-ldap \
       php-pgsql \
+      php-mysql \
  && cleanimage
 
 RUN cd "/tmp" \
