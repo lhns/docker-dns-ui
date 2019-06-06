@@ -28,6 +28,7 @@ RUN cd "/tmp" \
  && cleanimage
 
 COPY ["run.sh", "/"]
+RUN chmod +x /run.sh
 
 COPY ["dns-ui.conf", "/etc/apache2/conf-available/"]
 RUN ln -s /etc/apache2/conf-available/dns-ui.conf /etc/apache2/conf-enabled/.
