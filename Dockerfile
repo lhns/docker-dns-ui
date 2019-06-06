@@ -27,10 +27,12 @@ RUN cd "/tmp" \
  && mv $DNSUI_NAME $DNSUI_HOME \
  && cleanimage
 
+COPY ["run.sh", "/"]
+
 COPY ["dns-ui.conf", "/etc/apache2/conf-available/"]
 RUN ln -s /etc/apache2/conf-available/dns-ui.conf /etc/apache2/conf-enabled/.
 
 
 RUN mv $DNSUI_HOME/config/config-sample.ini $DNSUI_HOME/config-sample.ini
 
-CMD ["run.sh"]
+CMD ["/run.sh"]
