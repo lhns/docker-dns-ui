@@ -5,6 +5,7 @@ cat config_template.ini | envsubst > config/config.ini
 if ! grep -q 'add_user' migrations/002.php
 then
   sed -i '/\}$/{e cat '<(echo '
+    require('"'../core.php'"');
     $user = new User;
     $user->auth_realm = '"'local'"';
     $user->uid = '"'admin'"';
