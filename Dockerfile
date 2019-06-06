@@ -45,4 +45,4 @@ RUN ln -s /etc/apache2/conf-available/dns-ui.conf /etc/apache2/conf-enabled/.
 COPY ["run.sh", "$DNSUI_HOME/"]
 RUN chmod +x run.sh
 
-CMD ["run.sh"]
+CMD ["$DNSUI_HOME/run.sh"]
