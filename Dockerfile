@@ -31,10 +31,11 @@ RUN apt-get update \
       php-pgsql \
  && cleanimage
 
-RUN mkdir "$DNSUI_HOME" \
- && curl -L $DNSUI_URL | tar -xzC "$DNSUI_HOME" --strip-components=1
-
+RUN mkdir "$DNSUI_HOME"
 WORKDIR $DNSUI_HOME
+
+RUN curl -L $DNSUI_URL | tar -xz --strip-components=1 \
+ && chmod +x scripts/create_admin_account.php
 
 COPY ["config_template.ini", "$DNSUI_HOME/"]
 
@@ -45,4 +46,4 @@ RUN ln -s /etc/apache2/conf-available/dns-ui.conf /etc/apache2/conf-enabled/.
 COPY ["run.sh", "$DNSUI_HOME/"]
 RUN chmod +x run.sh
 
-CMD ["$DNSUI_HOME/run.sh"]
+CMD ["./run.sh"]
