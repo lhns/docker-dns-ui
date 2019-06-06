@@ -36,13 +36,13 @@ RUN mkdir "$DNSUI_HOME" \
 
 WORKDIR ["$DNSUI_HOME"]
 
-COPY ["config_template.ini", "$DNSUI_HOME"]
+COPY ["config_template.ini", "$DNSUI_HOME/"]
 
 COPY ["dns-ui.conf", "/etc/apache2/conf-available/"]
 RUN ln -s /etc/apache2/conf-available/dns-ui.conf /etc/apache2/conf-enabled/.
 
 
-COPY ["run.sh", "$DNSUI_HOME"]
-RUN chmod +x run.sh
+COPY ["run.sh", "$DNSUI_HOME/"]
+RUN chmod +x "$DNSUI_HOME/run.sh"
 
 CMD ["run.sh"]
