@@ -33,4 +33,4 @@ RUN ln -s /etc/apache2/conf-available/dns-ui.conf /etc/apache2/conf-enabled/.
 
 RUN mv $DNSUI_HOME/config/config-sample.ini $DNSUI_HOME/config-sample.ini
 
-CMD ["exec", "run.sh"]
+CMD ["run.sh"]

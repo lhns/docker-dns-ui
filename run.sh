@@ -1,3 +1,5 @@
+#!/bin/bash
+
 cp -n $DNSUI_HOME/config-sample.ini $DNSUI_HOME/config/config.ini
 
 apache2ctl start
