@@ -2,16 +2,26 @@ FROM lolhens/baseimage:latest
 MAINTAINER LolHens <pierrekisters@gmail.com>
 
 
-ENV DNSUI_VERSION 0.2.3
-ENV DNSUI_NAME dns-ui-$DNSUI_VERSION
-ENV DNSUI_FILE v$DNSUI_VERSION.tar.gz
-ENV DNSUI_URL https://github.com/operasoftware/dns-ui/archive/$DNSUI_FILE
-ENV DNSUI_HOME /usr/local/dns-ui
+ENV DNSUI_VERSION 53f5118a1d0ebc7ae144e84480932eaa1833c818
+ENV DNSUI_URL https://github.com/operasoftware/dns-ui/archive/$DNSUI_VERSION.tar.gz
+
+ENV DNSUI_HOME /opt/dns-ui
+ENV DNSUI_ADMIN_USER admin
+ENV DNSUI_ADMIN_NAME admin
+ENV DNSUI_ADMIN_EMAIL admin@example.com
+ENV DNSUI_WEB_BASEURL https://dns.example.com
+ENV DNSUI_DB_HOST localhost
+ENV DNSUI_DB_DBNAME dnsui
+ENV DNSUI_DB_USER username
+ENV DNSUI_DB_PASS password
+ENV DNSUI_API_URL http://localhost:8081
+ENV DNSUI_API_KEY api_key
 
 
 RUN apt-get update \
  && apt-get dist-upgrade -y \
  && apt-get install -y \
+      gettext \
       php \
       php-intl \
       php-json \
@@ -19,22 +29,20 @@ RUN apt-get update \
       php-mbstring \
       php-ldap \
       php-pgsql \
-      php-mysql \
  && cleanimage
 
-RUN cd "/tmp" \
- && curl -LO $DNSUI_URL \
- && tar -xf $DNSUI_FILE \
- && mv $DNSUI_NAME $DNSUI_HOME \
- && cleanimage
+RUN mkdir "$DNSUI_HOME" \
+ && curl -L $DNSUI_URL | tar -xzC "$DNSUI_HOME" --strip-components=1
 
-COPY ["run.sh", "/"]
-RUN chmod +x /run.sh
+WORKDIR ["$DNSUI_HOME"]
+
+COPY ["config_template.ini", "$DNSUI_HOME"]
 
 COPY ["dns-ui.conf", "/etc/apache2/conf-available/"]
 RUN ln -s /etc/apache2/conf-available/dns-ui.conf /etc/apache2/conf-enabled/.
 
 
-RUN mv $DNSUI_HOME/config/config-sample.ini $DNSUI_HOME/config-sample.ini
+COPY ["run.sh", "$DNSUI_HOME"]
+RUN chmod +x run.sh
 
-CMD ["/run.sh"]
+CMD ["run.sh"]
