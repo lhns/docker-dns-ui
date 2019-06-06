@@ -2,18 +2,20 @@
 
 cat config_template.ini | envsubst > config/config.ini
 
-if ! grep -q 'add_user' migrations/002.php
+if ! grep -q 'INSERT INTO "user"' migrations/002.php
 then
   sed -i '/\}$/{e cat '<(echo '
-    require('"'../core.php'"');
-    $user = new User;
-    $user->auth_realm = '"'local'"';
-    $user->uid = '"'admin'"';
-    $user->name = '"'$DNSUI_ADMIN_NAME'"';
-    $user->email = '"'$DNSUI_ADMIN_EMAIL'"';
-    $user->active = 1;
-    $user->admin = 1;
-    $user_dir->add_user($user);
+    $stmt = $this->database->prepare('
+    INSERT INTO "user" (uid, name, email, active, admin, auth_realm)
+      VALUES (?, ?, ?, ?, ?, ?)
+    ')->execute(array(
+        '"'admin'"',
+        '"'$DNSUI_ADMIN_NAME'"',
+        '"'$DNSUI_ADMIN_EMAIL'"',
+        1,
+        1,
+        '"'local'"'
+    ));
 ')$'\n}' migrations/002.php
 fi
 
