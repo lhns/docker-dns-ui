@@ -8,7 +8,7 @@ ENV DNSUI_URL https://github.com/operasoftware/dns-ui/archive/$DNSUI_VERSION.tar
 ENV DNSUI_HOME /opt/dns-ui
 ENV DNSUI_ADMIN_NAME admin
 ENV DNSUI_ADMIN_EMAIL admin@example.com
-ENV DNSUI_WEB_BASEURL https://dns.example.com
+ENV DNSUI_WEB_BASEURL 
 ENV DNSUI_DB_HOST localhost
 ENV DNSUI_DB_DBNAME dnsui
 ENV DNSUI_DB_USER username
