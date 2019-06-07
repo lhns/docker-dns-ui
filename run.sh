@@ -16,18 +16,6 @@ then
         1,
         "local"
     ));
-
-    $this->database->prepare('"'"'
-    INSERT INTO "user" (uid, name, email, active, admin, auth_realm)
-      VALUES (?, ?, ?, ?, ?, ?)
-    '"'"')->execute(array(
-        "admin2",
-        '"'$DNSUI_ADMIN_NAME'"',
-        '"'$DNSUI_ADMIN_EMAIL'"',
-        1,
-        1,
-        "local"
-    ));
 ')$'\n}' migrations/002.php
 fi
 
