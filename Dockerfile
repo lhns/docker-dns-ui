@@ -35,7 +35,7 @@ WORKDIR $DNSUI_HOME
 
 RUN curl -L $DNSUI_URL | tar -xz --strip-components=1
 
-RUN sed -i -r 's/^(\s*).*Not logged in.*$/\1$active_user = $user_dir->get_user_by_uid('"'root'"');/' requesthandler.php
+RUN sed -i -r 's/^(\s*).*Not logged in.*$/\1$active_user = $user_dir->get_user_by_uid('"'admin'"');/' requesthandler.php
 
 COPY ["config_template.ini", "$DNSUI_HOME/"]
 
